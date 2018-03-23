@@ -85,7 +85,7 @@ contract MixinExchangeCore is
 
         // Check if order has been cancelled
         if (cancelled[orderHash]) {
-            LogError(uint8(Errors.ORDER_FULLY_FILLED_OR_CANCELLED), orderHash);
+            LogError(uint8(Errors.ORDER_CANCELLED), orderHash);
             return 0;
         }
 
@@ -113,7 +113,7 @@ contract MixinExchangeCore is
         uint256 remainingTakerTokenAmount = safeSub(order.takerTokenAmount, filled[orderHash]);
         takerTokenFilledAmount = min256(takerTokenFillAmount, remainingTakerTokenAmount);
         if (takerTokenFilledAmount == 0) {
-            LogError(uint8(Errors.ORDER_FULLY_FILLED_OR_CANCELLED), orderHash);
+            LogError(uint8(Errors.ORDER_FULLY_FILLED), orderHash);
             return 0;
         }
 
@@ -167,7 +167,7 @@ contract MixinExchangeCore is
         }
 
         if (cancelled[orderHash]) {
-            LogError(uint8(Errors.ORDER_FULLY_FILLED_OR_CANCELLED), orderHash);
+            LogError(uint8(Errors.ORDER_CANCELLED), orderHash);
             return false;
         }
 
